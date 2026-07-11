@@ -17,6 +17,18 @@ List<SettingsModel> get recommendSettings => [
     needReboot: true,
   ),
   SwitchModel(
+    title: '主动发现推荐',
+    subtitle: '从关注UP投稿和相关视频中发现未看视频，替代官方推荐流',
+    leading: const Icon(Icons.explore_outlined),
+    setKey: SettingBoxKey.useDiscoverRcmd,
+    defaultVal: false,
+    onChanged: (value) {
+      if (value) {
+        Get.find<RcmdController>().onRefresh();
+      }
+    },
+  ),
+  SwitchModel(
     title: '保留首页推荐刷新',
     subtitle: '下拉刷新时保留上次内容',
     leading: const Icon(Icons.refresh),
