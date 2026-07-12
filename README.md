@@ -5,14 +5,13 @@
 
 
 <div align="center">
-    <h1>PiliPlus</h1>
+    <h1>PiliPlus Mod</h1>
 <div align="center">
     
-![GitHub repo size](https://img.shields.io/github/repo-size/bggRGjQaUbCoE/PiliPlus) 
-![GitHub Repo stars](https://img.shields.io/github/stars/bggRGjQaUbCoE/PiliPlus) 
-![GitHub all releases](https://img.shields.io/github/downloads/bggRGjQaUbCoE/PiliPlus/total) 
+![GitHub repo size](https://img.shields.io/github/repo-size/fangzny1/PiliPlus_Mod) 
+![GitHub](https://img.shields.io/github/license/fangzny1/PiliPlus_Mod)
 </div>
-    <p>使用Flutter开发的BiliBili第三方客户端</p>
+    <p>基于PiliPlus修改的BiliBili第三方客户端 — 增加主动发现推荐引擎</p>
     
 <img src="assets/screenshots/510shots_so.png" width="32%" alt="home" />
 <img src="assets/screenshots/174shots_so.png" width="32%" alt="home" />
@@ -35,7 +34,39 @@
 
 [![Packaging status](https://repology.org/badge/vertical-allrepos/piliplus.svg)](https://repology.org/project/piliplus/versions)
 
+## 🆕 Mod 新增功能
+
+### 主动发现推荐引擎
+- [x] 替代B站官方推荐流，从你关注的UP主中发现未看视频
+- [x] 随机采样关注UP → 空间投稿 → 相关视频展开 → 排除已看
+- [x] 发现视频混入官方推荐流，支持自定义比例
+
+### 可配置参数
+- [x] **采样UP数** — 每次刷新随机抽取1~5个关注UP
+- [x] **每批总量** — 每次注入的发现视频数量（10~40）
+- [x] **混入间隔** — 每N条推荐插入1条发现视频
+- [x] **相关视频展开** — 开关控制是否从采样视频继续扩展
+
+### "此类内容过多"一键过滤
+- [x] 视频三点菜单新增选项，一键拉黑UP + 提交不感兴趣
+- [x] 弹出标题自动拆词器，勾选关键词加入标题过滤
+- [x] 可手动编辑关键词，支持`|`分隔
+
+### GitHub Actions 自动构建
+- [x] 推送 main 自动编译 APK（arm64-v8a / armeabi-v7a / x86_64）
+- [x] 支持手动触发工作流
+
+### 构建配置
+- Gradle 9.5.0 + AGP 8.12.2 + JDK 21
+- Flutter 3.44.6（Dart 3.12.2）
+
+---
+
 ## refactor
+
+- [ ] gRPC [wip]
+- [x] 用户界面
+- [x] 其他
 
 - [ ] gRPC [wip]
 - [x] 用户界面
