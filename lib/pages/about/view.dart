@@ -301,6 +301,27 @@ Commit Hash: ${BuildConfig.commitHash}''',
               },
             ),
           ),
+          Divider(
+            thickness: 1,
+            height: 30,
+            color: theme.colorScheme.outlineVariant,
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
+            child: Text.rich(
+              TextSpan(
+                style: TextStyle(fontSize: 12, color: theme.colorScheme.outline),
+                children: [
+                  const TextSpan(text: 'PiliPlus Mod — 基于 '),
+                  TextSpan(
+                    text: 'bggRGjQaUbCoE/PiliPlus',
+                    style: TextStyle(color: theme.colorScheme.primary),
+                  ),
+                  const TextSpan(text: ' 修改'),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
