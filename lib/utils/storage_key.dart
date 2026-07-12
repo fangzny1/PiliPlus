@@ -59,6 +59,8 @@ abstract final class SettingBoxKey {
       discoverBatchSize = 'discoverBatchSize',
       discoverMixInterval = 'discoverMixInterval',
       discoverRelatedExpand = 'discoverRelatedExpand',
+      interestTagEnabled = 'interestTagEnabled',
+      interestTagMode = 'interestTagMode',
       autoUpdate = 'autoUpdate',
       maxCacheSize = 'maxCacheSize',
       defaultShowComment = 'defaultShowComment',

@@ -54,6 +54,7 @@ import 'package:PiliPlus/utils/storage_key.dart';
 import 'package:PiliPlus/utils/storage_pref.dart';
 import 'package:PiliPlus/utils/storage_utils.dart';
 import 'package:PiliPlus/utils/utils.dart';
+import 'package:PiliPlus/utils/interest_tag.dart';
 import 'package:PiliPlus/utils/video_utils.dart';
 import 'package:battery_plus/battery_plus.dart';
 import 'package:canvas_danmaku/canvas_danmaku.dart';
@@ -408,6 +409,26 @@ class HeaderControlState extends State<HeaderControl>
                       size: 20,
                     ),
                     title: const Text('离线缓存', style: titleStyle),
+                  ),
+                if (Pref.interestTagEnabled)
+                  ListTile(
+                    dense: true,
+                    onTap: () async {
+                      Get.back();
+                      final tags = await InterestTagManager.fetchTagsForBvid(
+                        videoDetailCtr.bvid,
+                      );
+                      if (tags.isEmpty) {
+                        SmartDialog.showToast('未获取到标签');
+                        return;
+                      }
+                      InterestTagManager.addTags(tags);
+                      SmartDialog.showToast(
+                        '已添加 ${tags.length} 个兴趣标签',
+                      );
+                    },
+                    leading: const Icon(Icons.local_offer_outlined, size: 20),
+                    title: const Text('添加兴趣标签', style: titleStyle),
                   ),
                 if (widget.videoDetailCtr.cover.value.isNotEmpty)
                   ListTile(
