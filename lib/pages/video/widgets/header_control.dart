@@ -416,17 +416,82 @@ class HeaderControlState extends State<HeaderControl>
                     dense: true,
                     onTap: () async {
                       Get.back();
-                      final tags = await InterestTagManager.fetchTagsForBvid(
+                      final allTags = await InterestTagManager.fetchTagsForBvid(
                         videoDetailCtr.bvid,
                       );
-                      if (tags.isEmpty) {
+                      if (allTags.isEmpty) {
                         SmartDialog.showToast('未获取到标签');
                         return;
                       }
-                      InterestTagManager.addTags(tags);
-                      SmartDialog.showToast(
-                        '已添加 ${tags.length} 个兴趣标签',
+                      final existing = InterestTagManager.allTags;
+                      final selected = <String>{};
+                      if (!context.mounted) return;
+                      final confirmed = await showDialog<bool>(
+                        context: context,
+                        builder: (ctx) => StatefulBuilder(
+                          builder: (ctx, setState) => AlertDialog(
+                            title: const Text('选择兴趣标签'),
+                            content: SizedBox(
+                              width: 320,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    '勾选想添加到兴趣库的标签：',
+                                    style: TextStyle(fontSize: 13),
+                                  ),
+                                  const SizedBox(height: 12),
+                                  Wrap(
+                                    spacing: 8,
+                                    runSpacing: 4,
+                                    children: allTags.map((tag) {
+                                      final isExisting = existing.containsKey(tag);
+                                      return FilterChip(
+                                        label: Text(
+                                          isExisting
+                                              ? '$tag (已有x${existing[tag]})'
+                                              : tag,
+                                          style: const TextStyle(fontSize: 13),
+                                        ),
+                                        selected: selected.contains(tag) ||
+                                            isExisting,
+                                        onSelected: isExisting
+                                            ? null
+                                            : (v) {
+                                                setState(() {
+                                                  if (v) {
+                                                    selected.add(tag);
+                                                  } else {
+                                                    selected.remove(tag);
+                                                  }
+                                                });
+                                              },
+                                      );
+                                    }).toList(),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Get.back(result: false),
+                                child: const Text('取消'),
+                              ),
+                              TextButton(
+                                onPressed: () => Get.back(result: true),
+                                child: const Text('保存'),
+                              ),
+                            ],
+                          ),
+                        ),
                       );
+                      if (confirmed == true && selected.isNotEmpty) {
+                        InterestTagManager.addTags(selected.toList());
+                        SmartDialog.showToast(
+                          '已添加 ${selected.length} 个兴趣标签',
+                        );
+                      }
                     },
                     leading: const Icon(Icons.local_offer_outlined, size: 20),
                     title: const Text('添加兴趣标签', style: titleStyle),
